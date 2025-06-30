@@ -1,0 +1,49 @@
+<div class="esfera-blur"></div>
+
+<nav class="navbar">
+  <button class="left-btn">Logo</button>
+
+  <div class="center-buttons">
+    <button (click)="hrefProducto()">Productos</button>
+    <button (click)="hrefTabla()" >Tabla</button>
+  </div>
+
+  <button class="right-btn" (click)="logout()">Cerrar sesión</button>
+</nav>
+
+<br><br><br><br>
+<!-- <P>{{ productos.data | json }}</P> -->
+
+<div class="contenedor-productos contenedor-productos-header row">
+  <div class="col-12">
+    <h2>Productos</h2>
+  </div>
+</div>
+
+<div class="row bg-low contenedor-productos">
+  <div class="col-4 contenedor-productos-section">
+    <h6>Nombre</h6>
+  </div>
+  <div class="col-4 contenedor-productos-section">
+    <h6>Precio</h6>
+  </div>
+  <div class="col-4 contenedor-productos-section">
+    <h6>Slogan</h6>
+  </div>
+</div>
+
+  <!-- <div class="contenedor-productos contenedor-productos-body row" *ngFor="let data of productos.data">
+    <div class="col-4 contenedor-productos-section">{{ data.name }}</div>
+    <div class="col-4 contenedor-productos-section">{{ data.price }}</div>
+    <div class="col-4 contenedor-productos-section">{{ data.slogan }}</div>
+  </div> -->
+
+  <div class="contenedor-productos contenedor-productos-body row">
+    <div class="col-4 contenedor-productos-section">Sprite</div>
+    <div class="col-4 contenedor-productos-section">29.99</div>
+    <div class="col-4 contenedor-productos-section">La verdad refresca</div>
+    
+    <div class="col-4 contenedor-productos-section">Del valle</div>
+    <div class="col-4 contenedor-productos-section">19.99</div>
+    <div class="col-4 contenedor-productos-section">Mundo y salud</div>
+  </div>
