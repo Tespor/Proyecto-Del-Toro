@@ -1,0 +1,40 @@
+/*Tabla*/
+    .table-container {
+      border-radius: 10px;
+      overflow-x: auto;
+      max-width: 800px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    thead {
+      color: #2b6cb0;
+      border-bottom: 2px solid #0066ff;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .edit-link {
+      color: #2b6cb0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .edit-link:hover {
+      text-decoration: underline;
+    }
