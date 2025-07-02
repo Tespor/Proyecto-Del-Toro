@@ -11,19 +11,4 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
-  datosDelFormulario: any;
-  
-  constructor(private router: Router) {}
-  
-  hrefTabla(){
-    this.router.navigate(['/tabla'], {
-      state: { datos: this.datosDelFormulario }
-    });
-  }
-
-  hrefProducto(){
-    this.router.navigate(['/'], {
-      state: { datos: this.datosDelFormulario }
-    });
-  }
 }
