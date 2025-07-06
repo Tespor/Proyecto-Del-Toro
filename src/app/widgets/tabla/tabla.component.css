@@ -2,7 +2,7 @@
     .table-container {
       border-radius: 10px;
       overflow-x: auto;
-      max-width: 800px;
+      max-width: 1000px;
     }
 
     table {

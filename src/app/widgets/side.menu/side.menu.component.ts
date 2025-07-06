@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { StateService } from '../../shared/state.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -11,8 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SideMenuComponent {
 
-  
-    constructor(private authServ: AuthService, private router: Router) { }
+  constructor(private authServ: AuthService, private router: Router, private state: StateService) { }
 
   //   hrefTabla(){
   //   this.router.navigate(['/tabla'], {
@@ -40,4 +40,7 @@ export class SideMenuComponent {
     });
   }
 
+  selectOption(option: string) {
+    this.state.setSelectedOption(option);
+  }
 }

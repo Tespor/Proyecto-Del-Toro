@@ -1,36 +1,42 @@
 <div class="table-container neumorphic">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>STATUS</th>
-            <th>PRICE</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Apple MacBook Pro 17"</strong></td>
-            <td>Silver</td>
-            <td>Laptop</td>
-            <td>$2999</td>
-            <td><a href="#" class="edit-link">Edit</a></td>
-          </tr>
-          <tr>
-            <td><strong>Microsoft Surface Pro</strong></td>
-            <td>White</td>
-            <td>Laptop PC</td>
-            <td>$1999</td>
-            <td><a href="#" class="edit-link">Edit</a></td>
-          </tr>
-          <tr>
-            <td><strong>Magic Mouse 2</strong></td>
-            <td>Black</td>
-            <td>Accessories</td>
-            <td>$99</td>
-            <td><a href="#" class="edit-link">Edit</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+  <table>
+    <thead>
+        <tr>
+          <th *ngFor="let head of headers" class="text-uppercase">{{ head }}</th>
+          <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngIf="addData">
+        <td *ngFor="let head of headers">
+          <input type="text" style="min-width: 0px; width: 100%;"/>
+        </td>
+      </tr>
+
+      <tr *ngFor="let info of data">
+          <td *ngFor="let value of getValues(info);">
+            {{ value }}
+          </td>
+          <td>
+            <button (click)="setDelete(getValues(info)[0])" type="button" class="btn btn-danger btn-rounded">
+              <span class="material-symbols-outlined m-auto">
+                delete 
+              </span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary btn-rounded">
+              <span class="material-symbols-outlined m-auto">
+              cached
+              </span>
+            </button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+      

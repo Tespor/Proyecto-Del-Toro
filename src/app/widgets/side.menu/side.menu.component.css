@@ -17,10 +17,18 @@
   cursor: pointer;
 }
 
-.home .circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.home > button > span {
+  color: #707070;
+}
+.home button span {
+  transition: color 0.2s ease;
+}
+.home:hover button span {
+  color: #557CFF;
+}
+.home span {
+  color: #707070;
+  transition: color 0.2s ease;
 }
 
 .menu-item {
