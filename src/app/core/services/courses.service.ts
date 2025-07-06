@@ -28,7 +28,17 @@ private http = inject(HttpClient);
     );
   }
   //Aqui van las demas apis
-  public delete(id: String): Observable<any> {
+  public deleteCourse(id: String): Observable<any> {
      return this.http.delete(`${this.url}eliminar/${id}`);
   }
+  
+ public updateCourse(id: string, datos: Courses): Observable<any> {
+  return this.http.put(`${this.url}editar/${id}`, datos);
+}
+
+ public addCourse(datos: Courses) : Observable<any> {
+     return this.http.post(`${this.url}ingresar`, datos);
+  }
+
+
 }

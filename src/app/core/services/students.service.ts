@@ -61,8 +61,13 @@ export default class StudentsService {
   public addStudent(datos: Students) : Observable<any> {
      return this.http.post(`${this.url}ingresar`, datos);
   }
+  
+  public updateStudent(datos: Students) : Observable<any>{
+    return this.http.put(`${this.url}editar/${datos.id}`, datos)
+  }
 
-  public delete(id: String): Observable<any> {
+  
+  public deleteStudent(id: String): Observable<any> {
      return this.http.delete(`${this.url}eliminar/${id}`);
   }
 

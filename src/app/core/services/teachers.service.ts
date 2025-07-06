@@ -30,8 +30,17 @@ export class TeachersService {
     ) as Observable<Teachers[]>;
   }
 
-  public delete(id: String): Observable<any> {
+  public deleteTeachers(id: String): Observable<any> {
     return this.http.delete(`${this.url}eliminar/${id}`);
   }
   //las demas apis
+
+  public addTeachers(datos: Teachers) : Observable<any> {
+      return this.http.post(`${this.url}ingresar`, datos);
+   }
+
+  public updateTeachers(id: string, datos: Teachers): Observable<any> {
+   return this.http.put(`${this.url}editar/${id}`, datos);
+ }
+
 }
