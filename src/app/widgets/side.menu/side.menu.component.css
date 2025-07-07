@@ -1,0 +1,49 @@
+.sidebar {
+  width: 250px;
+  border-right: 1px solid #ccc;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: #E5E5E5;
+  height: 100vh;
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.home > button > span {
+  color: #707070;
+}
+.home button span {
+  transition: color 0.2s ease;
+}
+.home:hover button span {
+  color: #557CFF;
+}
+.home span {
+  color: #707070;
+  transition: color 0.2s ease;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.menu-item .icon {
+  width: 16px;
+  height: 16px;
+  background-color: #557CFF;
+  border-radius: 3px;
+}

@@ -1,5 +1,7 @@
 :root {
     /* color-scheme: light dark; */
+    --color-text: #707070,
+    --primary-color: #3498db;
 }
 
 * {
@@ -31,6 +33,17 @@ body{
         5px 5px 8px rgba(0, 0, 0, 0.45);
 }
 
+.neumorphic-low:hover{
+    box-shadow:
+        -5px -5px 8px rgba(255, 255, 255, .6),
+        5px 5px 8px rgba(0, 0, 0, 0.35);
+}
+
+.neumorphic-low:active {
+    border-left: 2px solid #aaa2a2;
+    border-top: 2px solid #a09898;
+}
+
 .glass-box {
       width: 10px;
       height: 100px;
@@ -40,4 +53,12 @@ body{
       backdrop-filter: blur(16px) saturate(180%);
       -webkit-backdrop-filter: blur(16px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-rounded{
+    border-radius: 50px;
+    margin-left: 10px;
+    padding: 5px;
+    display: flex;
+    aspect-ratio: 1 / 1;
 }

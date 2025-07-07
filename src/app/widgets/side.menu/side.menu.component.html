@@ -1,0 +1,31 @@
+<div class="sidebar">
+
+    <div class="home" (click)="hrefHome()">
+      <button type="button" class="btn btn-rounded neumorphic-low p-2">
+        <span class="material-symbols-outlined m-auto">
+          home
+        </span>
+      </button>
+      <span>Home</span>
+    </div>
+
+    <div class="menu-item" (click)="hrefStudets(); selectOption('Students');">
+      <div class="icon">
+        <span class="material-symbols-outlined">
+          school
+        </span>
+      </div>
+      <span>Students</span>
+    </div>
+
+    <div class="menu-item" (click)="hrefTeachers(); selectOption('Teachers');">
+      <div class="icon"></div>
+      <span>Teachers</span>
+    </div>
+
+    <div class="menu-item" (click)="hrefCours(); selectOption('Courses');">
+      <div class="icon"></div>
+      <span>Courses</span>
+    </div>
+
+  </div>

@@ -1,0 +1,42 @@
+<div class="table-container neumorphic">
+
+  <table>
+    <thead>
+        <tr>
+          <th *ngFor="let head of headers" class="text-uppercase">{{ head }}</th>
+          <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngIf="addData">
+        <td *ngFor="let head of headers">
+          <input type="text" style="min-width: 0px; width: 100%;"/>
+        </td>
+      </tr>
+
+      <tr *ngFor="let info of data">
+          <td *ngFor="let value of getValues(info);">
+            {{ value }}
+          </td>
+          <td>
+            <button (click)="setDelete(getValues(info)[0])" type="button" class="btn btn-danger btn-rounded">
+              <span class="material-symbols-outlined m-auto">
+                delete 
+              </span>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary btn-rounded">
+              <span class="material-symbols-outlined m-auto">
+              cached
+              </span>
+            </button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+      

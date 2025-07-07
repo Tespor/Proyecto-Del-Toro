@@ -13,18 +13,8 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`http://localhost:3000/login`, { email, password });
+    return this.http.post(`http://localhost:3000/users/login`, { email, password });
   }
-  // login(email: string, password: string): Observable<any>{
-  //   return this.http.post<any>('http://localhost:3000/login', {email, password}).pipe(
-  //     tap(response => {
-  //       if(response.token){
-  //         console.log(`Este es tu token:`, response.token);
-  //         this.setToken(response.token);
-  //       }
-  //     })
-  //   )
-  // }
 
   seveToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
@@ -52,8 +42,4 @@ export class AuthService {
     localStorage.removeItem('jwt');
     this.router.navigate(['/']);
   }
-
-  
-
-
 }

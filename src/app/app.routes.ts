@@ -1,10 +1,8 @@
 import { Routes } from '@angular/router';
 import { AuthGuardGuard } from './core/guard/auth-guard.guard';
 import { AuthenticatedGuardGuard } from './core/guard/authenticated-guard.guard';
-import { StudentsComponent } from './pages/students/students.component';
-import { TeachersComponent } from './pages/teachers/teachers.component';
-import { CoursComponent } from './pages/cours/cours.component';
 import HomeComponent from './pages/home/home.component';
+import { AllComponent } from './pages/all/all.component';
 
 export const routes: Routes = [
     {
@@ -16,7 +14,6 @@ export const routes: Routes = [
         path: 'login',
         loadComponent: () => import('./login/login.component'),
         canActivate: [AuthenticatedGuardGuard]
-
     },
     {
         path: 'home',
@@ -26,17 +23,17 @@ export const routes: Routes = [
     },
     {
         path: 'students',
-        component: StudentsComponent,
+        component: AllComponent,
         canActivate: [AuthGuardGuard]
     },
     {
         path: 'teachers',
-        component: TeachersComponent,
+        component: AllComponent,
         canActivate: [AuthGuardGuard]
     },
     {
         path: 'courses',
-        component: CoursComponent,
+        component: AllComponent,
         canActivate: [AuthGuardGuard]
     }
 ];
