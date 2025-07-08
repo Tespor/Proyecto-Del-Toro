@@ -4,8 +4,10 @@ import { Observable, of, map } from 'rxjs';
 
 /*Interfaz to students data*/
 export interface Teachers {
-  matricula: number;
+  id: number;
   name: string;
+  lastname: string;
+  slastname: string;
   email: string;
   phone: number;
 }
@@ -22,8 +24,10 @@ export class TeachersService {
     return this.http.get<any[]>(`${this.url}ver`).pipe(
       map(data =>
         data.map(item => ({
-          matricula: item.matricula,
-          name: `${item.nombre} ${item.apellidoP} ${item.apellidoM}`,
+          id: item.id,
+          name: item.nombre,
+          lastname: item.apellidoP,
+          slastname: item.apellidoM,
           email: item.correo_electronico,
           phone: item.telefono
         })))
@@ -34,8 +38,10 @@ export class TeachersService {
     return this.http.get<any[]>(`${this.url}ver`).pipe(
       map(data =>
         data.map(item => ({
-          matricula: item.matricula,
-          name: `${item.nombre} ${item.apellidoP} ${item.apellidoM}`,
+          id: item.id,
+          name: item.nombre,
+          lastname: item.apellidoP,
+          slastname: item.apellidoM,
           email: item.correo_electronico,
           phone: item.telefono
         })))

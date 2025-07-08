@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import StudentsService, { Students } from '../../core/services/students.service';
+import StudentsService from '../../core/services/students.service';
 import { CommonModule } from '@angular/common';
 import { TeachersService } from '../../core/services/teachers.service';
 import { CoursesService } from '../../core/services/courses.service';
@@ -85,9 +85,10 @@ export class TablaComponent {
   }
 
   addDataa(data: any, service: any) {
-    if (confirm(`Estas Seguro de Eliminar Este Dato: ${data[0]}?`)) {
+    if (confirm(`Estas Seguro de Agregar Este Dato: ${data[0]}?`)) {
       service.add(data).subscribe(() => {
         this.getDataTable(service);
+        this.showRow = false;
       });
     }
   }

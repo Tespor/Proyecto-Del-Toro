@@ -4,19 +4,10 @@ import { Observable, of, pipe, map } from 'rxjs';
 
 /*Interfaz to students data*/
 export interface Students {
-  id: number,
-  nombre: string,
-  apellidoP: string,
-  apellidoM: string,
-  correo_electronico: string,
-  telefono: number,
-  password: string,
-  permissions: number
-}
-
-export interface PublicStudent {
   id: number;
   name: string;
+  lastname: string;
+  slastname: string;
   email: string;
   phone: number;
 }
@@ -31,42 +22,58 @@ export default class StudentsService {
   private http = inject(HttpClient);
   private url = "http://localhost:3000/alumnos/";
 
-  public getList() : Observable<PublicStudent[]> {
+  public getList() : Observable<Students[]> {
     return this.http.get<any[]>(`${this.url}ver`).pipe(
       map(data =>
         data.map(item => ({
           id: item.matricula,
-          name: `${item.nombre} ${item.apellidoP} ${item.apellidoM}`,
+          name: item.nombre,
+          lastname: item.apellidoP,
+          slastname: item.apellidoM,
           email: item.correo_electronico,
           phone: item.telefono
         }))
       )
-    ) as Observable<PublicStudent[]>;
+    ) as Observable<Students[]>;
   }
 
-  public getSearch(palabra: string) : Observable<PublicStudent[]> {
+  public getSearch(palabra: string) : Observable<Students[]> {
     return this.http.get<any[]>(`${this.url}buscar/${palabra}`).pipe(
       map(data =>
         data.map(item => ({
           id: item.matricula,
-          name: `${item.nombre} ${item.apellidoP} ${item.apellidoM}`,
+          name: item.nombre,
+          lastname: item.apellidoP,
+          slastname: item.apellidoM,
           email: item.correo_electronico,
           phone: item.telefono
         }))
       )
-    ) as Observable<PublicStudent[]>;
-  }
-
-  public add(datos: Students) : Observable<any> {
-     return this.http.post(`${this.url}ingresar`, datos);
+    ) as Observable<Students[]>;
   }
   
-  public update(datos: Students) : Observable<any>{
-    return this.http.put(`${this.url}editar/${datos.id}`, datos)
+  public add(data: Students) : Observable<any> {
+    const dataClean = this.convertData(data);
+    return this.http.post(`${this.url}ingresar`, dataClean);
+  }
+  
+  public update(data: Students) : Observable<any>{
+    return this.http.put(`${this.url}editar/${data.id}`, data)
   }
   
   public delete(id: String): Observable<any> {
-     return this.http.delete(`${this.url}eliminar/${id}`);
+    return this.http.delete(`${this.url}eliminar/${id}`);
+  }
+
+
+  private convertData(data: Students){
+    return {
+      nombre: data.name,
+      apellidoP: data.lastname,
+      apellidoM: data.slastname,
+      correo_electronico: data.email,
+      telefono: data.phone    
+    }
   }
 
 }
