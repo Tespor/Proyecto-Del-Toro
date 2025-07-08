@@ -43,7 +43,6 @@ export default class StudentsService {
       )
     ) as Observable<PublicStudent[]>;
   }
-  //Aqui van las demas apis
 
   public getSearch(palabra: string) : Observable<PublicStudent[]> {
     return this.http.get<any[]>(`${this.url}buscar/${palabra}`).pipe(
@@ -58,16 +57,15 @@ export default class StudentsService {
     ) as Observable<PublicStudent[]>;
   }
 
-  public addStudent(datos: Students) : Observable<any> {
+  public add(datos: Students) : Observable<any> {
      return this.http.post(`${this.url}ingresar`, datos);
   }
   
-  public updateStudent(datos: Students) : Observable<any>{
+  public update(datos: Students) : Observable<any>{
     return this.http.put(`${this.url}editar/${datos.id}`, datos)
   }
-
   
-  public deleteStudent(id: String): Observable<any> {
+  public delete(id: String): Observable<any> {
      return this.http.delete(`${this.url}eliminar/${id}`);
   }
 

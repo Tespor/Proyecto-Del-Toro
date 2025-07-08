@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SideMenuComponent } from "../../widgets/side.menu/side.menu.component";
 import { ButtonLogOutComponent } from "../../widgets/button-log-out/button-log-out.component";
 import { InputSearchComponent } from "../../widgets/input-search/input-search.component";
@@ -14,8 +14,13 @@ import { StateService } from '../../shared/state.service';
 })
 export class AllComponent {
   selectedTable = '';
+  showRow = false;
 
   constructor(private state: StateService) {}
+
+  onToggle() {
+    this.showRow = !this.showRow;
+  }
 
   ngOnInit(): void {
     this.state.selectedOption$.subscribe(value => {

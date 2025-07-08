@@ -9,9 +9,16 @@
     </thead>
     <tbody>
       
-      <tr *ngIf="addData">
+      <tr *ngIf="showRow">
         <td *ngFor="let head of headers">
-          <input type="text" style="min-width: 0px; width: 100%;"/>
+          <input type="text" [(ngModel)]="addData[head]" [attr.name]="head" class="neumorphic-reverse inputAddData rounded-lg"/>
+        </td>
+        <td>
+          <button type="button" (click)="setAdd(addData)" class="btn btn-primary btn-rounded">
+            <span class="material-symbols-outlined m-auto">
+              check
+            </span>
+          </button>
         </td>
       </tr>
 
@@ -29,7 +36,7 @@
           <td>
             <button type="button" class="btn btn-primary btn-rounded">
               <span class="material-symbols-outlined m-auto">
-              cached
+                cached
               </span>
             </button>
           </td>

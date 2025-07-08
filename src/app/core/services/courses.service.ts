@@ -13,7 +13,7 @@ export interface Courses {
 })
 
 export class CoursesService {
-private http = inject(HttpClient);
+  private http = inject(HttpClient);
   private url = "http://localhost:3000/cursos/";
 
   public getList() : Observable<Courses[]> {
@@ -27,18 +27,28 @@ private http = inject(HttpClient);
       )
     );
   }
-  //Aqui van las demas apis
-  public deleteCourse(id: String): Observable<any> {
-     return this.http.delete(`${this.url}eliminar/${id}`);
+
+  public getSearch() : Observable<Courses[]> {
+    return this.http.get<any[]>(`${this.url}ver`).pipe(
+      map( data => 
+        data.map(item => ({
+          id: item.id,
+          course: item.nombre_curso,
+          teacher: item.profesor_id,
+        }))
+      )
+    );
   }
   
- public updateCourse(id: string, datos: Courses): Observable<any> {
-  return this.http.put(`${this.url}editar/${id}`, datos);
-}
-
- public addCourse(datos: Courses) : Observable<any> {
-     return this.http.post(`${this.url}ingresar`, datos);
+  public delete(id: String): Observable<any> {
+    return this.http.delete(`${this.url}eliminar/${id}`);
   }
 
+  public update(id: string, datos: Courses): Observable<any> {
+    return this.http.put(`${this.url}editar/${id}`, datos);
+  }
 
+  public add(datos: Courses): Observable<any> {
+    return this.http.post(`${this.url}ingresar`, datos);
+  }
 }

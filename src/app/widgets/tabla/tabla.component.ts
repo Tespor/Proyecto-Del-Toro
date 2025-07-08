@@ -5,20 +5,21 @@ import { CommonModule } from '@angular/common';
 import { TeachersService } from '../../core/services/teachers.service';
 import { CoursesService } from '../../core/services/courses.service';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tabla',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './tabla.component.html',
   styleUrl: './tabla.component.css'
 })
 export class TablaComponent {
   @Input() tableType: string = '';
-  @Input() addData: boolean = true;
+  @Input() showRow = false;
+  addData: any = {};
   data: object[] = [];
   headers: string[] = [];
-  idDelete: String = '';
 
   constructor(
     private studentServ: StudentsService, 
@@ -27,7 +28,7 @@ export class TablaComponent {
   ) { }
 
   getValues(obj: any): any[] {
-    return Object.values(obj);
+    return Object.values(obj);//get values without keys
   }
 
   ngOnChanges() {
@@ -71,4 +72,24 @@ export class TablaComponent {
       });
     }
   }
+
+  setAdd(data: any){
+    switch (this.tableType){
+      case 'Students': this.addDataa(data, this.studentServ);
+        break;
+      case 'Teachers': this.addDataa(data, this.teacherServ);
+        break;
+      case 'Courses': this.addDataa(data, this.coursesServ);
+        break;
+    }
+  }
+
+  addDataa(data: any, service: any) {
+    if (confirm(`Estas Seguro de Eliminar Este Dato: ${data[0]}?`)) {
+      service.add(data).subscribe(() => {
+        this.getDataTable(service);
+      });
+    }
+  }
+
 }

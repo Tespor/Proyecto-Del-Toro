@@ -9,14 +9,14 @@
     <br><br>
     <div class="d-flex">
       <app-input-search></app-input-search>
-      <button type="button" class="btn btn-rounded neumorphic-low ml-2">
+      <button (click)="onToggle()" type="button" class="btn btn-rounded neumorphic-low ml-2">
         <span class="material-symbols-outlined m-auto">
           add
         </span>
       </button>
     </div>
     <br><br>
-    <app-tabla [tableType]="selectedTable" />
+    <app-tabla [tableType]="selectedTable" [showRow]="showRow"/>
   </div>
   
 </body>

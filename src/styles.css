@@ -44,6 +44,23 @@ body{
     border-top: 2px solid #a09898;
 }
 
+.neumorphic-reverse{
+    border: solid 2px transparent;
+    border-radius: 50px;
+    align-items: center;
+    box-shadow:
+            inset -5px -5px 8px rgba(255, 255, 255, 0.6),
+            inset 5px 5px 8px rgba(0, 0, 0, 0.3);
+    transition: 0.4s ease-in-out linear;
+}
+.neumorphic-reverse:hover{
+    border: solid #397aaf8e 2px;
+}
+.neumorphic-reverse:focus{
+    border: solid #397aafd7 2px;
+    outline: none;
+}
+
 .glass-box {
       width: 10px;
       height: 100px;

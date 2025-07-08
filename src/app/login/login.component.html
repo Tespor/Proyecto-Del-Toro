@@ -1,43 +1,39 @@
 <!-- component -->
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-<div
-	class="bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
+<!-- <div
+	class="bg-blue-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-blue-800 bottom-0 leading-5 h-full w-full overflow-hidden">
+</div> -->
 
-</div>
-<div class="relative   min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl">
+
+<div class="relative  min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl">
 	<div class="flex-col flex  self-center lg:px-14 sm:max-w-4xl xl:max-w-md  z-10">
-		<div class="self-start hidden lg:flex flex-col  text-gray-300">
+		<div class="self-start hidden lg:flex flex-col  text-black-300">
 
 			<h1 class="my-3 font-semibold text-4xl">Welcome back</h1>
 			<p class="pr-3 text-sm opacity-75">Lorem ipsum is placeholder text commonly used in the graphic, print,
 				and publishing industries for previewing layouts and visual mockups</p>
 		</div>
 	</div>
-	<div class="flex justify-center self-center  z-10">
-		<div class="p-12 bg-white mx-auto rounded-3xl w-96 ">
+
+	<div class="flex justify-center self-center z-10 max-h-lg">
+		<div class="p-12 mx-auto w-96 neumorphic rounded-lg">
+
 			<div class="mb-7">
 				<h3 class="font-semibold text-2xl text-gray-800">Sign In </h3>
 				<p class="text-gray-400">Don't have an account? <a href="#"
 						class="text-sm text-purple-700 hover:text-purple-700">Sign Up</a></p>
 			</div>
+
 			<form class="space-y-6" (ngSubmit)="onSubmit()">
 				<div class="">
-					<input
-						class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
+					<input class="neumorphic-reverse text-sm px-4 py-3 max-w-full w-full rounded-lg"
 						type="" placeholder="Email" [(ngModel)]="email" name="email">
 				</div>
 
-
 				<div class="relative" x-data="{ show: true }">
 					<input placeholder="Password" name="password" :type="show ? 'password' : 'text'"
-						class="text-sm text-gray-200 px-4 py-3 rounded-lg w-full bg-gray-200 focus:bg-gray-100 border border-gray-200 focus:outline-none focus:border-purple-400" [(ngModel)]="password">
-
-					<div class="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
-
-
-					</div>
+						class="neumorphic-reverse text-sm px-4 py-3 max-w-full w-full rounded-lg" [(ngModel)]="password">
 				</div>
-
 
 				<div class="flex items-center justify-between">
 
@@ -54,9 +50,9 @@
 					</button>
 				</div>
 				<div class="flex items-center justify-center space-x-2 my-5">
-					<span class="h-px w-16 bg-gray-100"></span>
-					<span class="text-gray-300 font-normal">or</span>
-					<span class="h-px w-16 bg-gray-100"></span>
+					<span class="h-px w-16 bg-gray-400"></span>
+					<span class="text-gray-500 font-normal">or</span>
+					<span class="h-px w-16 bg-gray-400"></span>
 				</div>
 				<div class="flex justify-center gap-5 w-full ">
 
@@ -72,7 +68,6 @@
 							<path fill="#FBBC05"
 								d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z" />
 						</svg>
-						<!-- <svg class="w-4" fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.99 13.9v-3.72h9.36c.14.63.25 1.22.25 2.05 0 5.71-3.83 9.77-9.6 9.77-5.52 0-10-4.48-10-10S6.48 2 12 2c2.7 0 4.96.99 6.69 2.61l-2.84 2.76c-.72-.68-1.98-1.48-3.85-1.48-3.31 0-6.01 2.75-6.01 6.12s2.7 6.12 6.01 6.12c3.83 0 5.24-2.65 5.5-4.22h-5.51v-.01Z"></path></svg> -->
 						<span>Google</span>
 					</button>
 
@@ -96,17 +91,15 @@
 				</div>
 				<p *ngIf="error" style="color:red;">{{ error }}</p>
 			</form>
-			<div class="mt-7 text-center text-gray-300 text-xs">
-			</div>
 		</div>
 	</div>
 </div>
 
 
-<svg class="absolute bottom-0 left-0 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-	<path fill="#fff" fill-opacity="1"
-		d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
-	</path>
-</svg>
+
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"></script>

@@ -1,12 +1,8 @@
     .search-wrapper {
         display: flex;
         align-items: center;
-        border-radius: 50px;
         padding: 10px 20px;
         width: 320px;
-        box-shadow:
-            inset -5px -5px 8px rgba(255, 255, 255, 0.6),
-            inset 5px 5px 8px rgba(0, 0, 0, 0.3);
     }
 
     .search-wrapper input {

@@ -38,3 +38,11 @@
     .edit-link:hover {
       text-decoration: underline;
     }
+
+    .inputAddData{
+      min-width: 0px; 
+      width: 100%;
+      padding: 3px 10px;
+      color: #4d4a4a;
+      border-radius: 10px;
+    }

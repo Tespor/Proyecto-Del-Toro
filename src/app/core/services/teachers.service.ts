@@ -30,17 +30,28 @@ export class TeachersService {
     ) as Observable<Teachers[]>;
   }
 
-  public deleteTeachers(id: String): Observable<any> {
+  public getSearch(): Observable<Teachers[]> {
+    return this.http.get<any[]>(`${this.url}ver`).pipe(
+      map(data =>
+        data.map(item => ({
+          matricula: item.matricula,
+          name: `${item.nombre} ${item.apellidoP} ${item.apellidoM}`,
+          email: item.correo_electronico,
+          phone: item.telefono
+        })))
+    ) as Observable<Teachers[]>;
+  }
+
+  public delete(id: String): Observable<any> {
     return this.http.delete(`${this.url}eliminar/${id}`);
   }
-  //las demas apis
 
-  public addTeachers(datos: Teachers) : Observable<any> {
-      return this.http.post(`${this.url}ingresar`, datos);
-   }
+  public add(datos: Teachers): Observable<any> {
+    return this.http.post(`${this.url}ingresar`, datos);
+  }
 
-  public updateTeachers(id: string, datos: Teachers): Observable<any> {
-   return this.http.put(`${this.url}editar/${id}`, datos);
- }
+  public update(id: string, datos: Teachers): Observable<any> {
+    return this.http.put(`${this.url}editar/${id}`, datos);
+  }
 
 }
