@@ -1,15 +1,44 @@
+<body class="bg-gray-50">
 
-<body>
-  
   <app-side-menu></app-side-menu>
 
-  <div class="main">
-    <h1>Dashboard</h1>
+  <div class="main max-w-5xl mx-auto">
+
+    <h1 class="text-3xl font-bold mb-4 px-4">Dashboard</h1>
     <app-button-log-out></app-button-log-out>
 
-    <br><br>
+    <h1 class="text-center text-2xl font-semibold uppercase mb-6 px-4">Bienvenidos</h1>
 
-    <h1 class="text-center text-uppercase">Bienvenudos</h1>
-  </div>
-  
+    <div id="carouselExampleAutoplaying" class="carousel relative w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden mb-12  border-red-500" data-bs-ride="carousel">
+
+      <div class="carousel-inner relative w-full overflow-hidden">
+        <div class="carousel-item active relative float-left w-full">
+          <img src="assets/img/pexels-rdne-7092350.jpg" alt="imagen1" class="block w-full rounded-lg shadow-md">
+        </div>
+        <div class="carousel-item relative float-left w-full">
+          <img src="assets/img/pexels-polina-tankilevitch-4443160.jpg" alt="imagen2" class="block w-full rounded-lg shadow-md">
+        </div>
+        <div class="carousel-item relative float-left w-full">
+          <img src="assets/img/pexels-yankrukov-8199133.jpg" alt="imagen3" class="block w-full rounded-lg shadow-md">
+        </div>
+      </div>
+
+      <button class="carousel-control-prev absolute top-0 left-0 h-full w-1/4 bg-transparent focus:outline-none" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev" aria-label="Previous slide">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="display:none;"></span>
+      </button>
+
+      <button class="carousel-control-next absolute top-0 right-0 h-full w-1/4 bg-transparent focus:outline-none" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next" aria-label="Next slide">
+        <span class="carousel-control-next-icon" aria-hidden="true" style="display:none;"></span>
+      </button>
+
+    </div> 
+
+    <div class="flex justify-center gap-6 mt-12 px-4 border border-blue-500">
+      <button class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">Students</button>
+      <button class="bg-green-600 text-white px-5 py-2 rounded hover:bg-green-700 transition">Teachers</button>
+      <button class="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 transition">Courses</button>
+    </div>
+
+  </div> 
+
 </body>
