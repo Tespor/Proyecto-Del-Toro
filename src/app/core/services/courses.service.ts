@@ -22,7 +22,7 @@ export class CoursesService {
         data.map(item => ({
           id: item.id,
           course: item.nombre_curso,
-          teacher: item.profesor_id,
+          teacher: item.nombre_profesor,
         }))
       )
     );

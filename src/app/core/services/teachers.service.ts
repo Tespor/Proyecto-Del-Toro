@@ -52,12 +52,23 @@ export class TeachersService {
     return this.http.delete(`${this.url}eliminar/${id}`);
   }
 
-  public add(datos: Teachers): Observable<any> {
-    return this.http.post(`${this.url}ingresar`, datos);
+  public add(data: Teachers): Observable<any> {
+    const dataClean = this.convertData(data);
+    return this.http.post(`${this.url}ingresar`, dataClean);
   }
 
-  public update(id: string, datos: Teachers): Observable<any> {
-    return this.http.put(`${this.url}editar/${id}`, datos);
+  public update(id: string, data: Teachers): Observable<any> {
+    return this.http.put(`${this.url}editar/${id}`, data);
+  }
+
+  private convertData(data: Teachers) {
+    return {
+      nombre: data.name,
+      apellidoP: data.lastname,
+      apellidoM: data.slastname,
+      correo_electronico: data.email,
+      telefono: data.phone
+    }
   }
 
 }
