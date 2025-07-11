@@ -22,4 +22,9 @@ export class StateService {
   getSelectedOption(): string {
     return this.selectedOptionSubject.value;
   }
+
+  deleteSelectedOtion() {
+    this.selectedOptionSubject.next('');
+    localStorage.removeItem(this.storageKey);
+  }
 }

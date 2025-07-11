@@ -18,17 +18,26 @@
 }
 
 .home > button > span {
-  color: #707070;
+  color: var(--color-text-gray);
 }
 .home button span {
   transition: color 0.2s ease;
 }
 .home:hover button span {
-  color: #557CFF;
+  color: var(--color1-blue);
 }
 .home span {
-  color: #707070;
+  color: var(--color-text-gray);
   transition: color 0.2s ease;
+}
+
+.home.activeHome button {
+  border: 0;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  box-shadow:
+            inset -5px -5px 8px rgba(255, 255, 255, 0.801),
+            inset 5px 5px 8px rgba(0, 0, 0, 0.3);
 }
 
 .menu-item {
@@ -39,11 +48,49 @@
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
+  transition: 0.5s ease-in-out;
+  border-radius: 5px;
+  position: relative;
+  z-index: 1;
+}
+.menu-item > span{
+  z-index: 2;
+  color: var(--color-text-gray);
+}
+
+.menu-item::before{
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  background-color: #557CFF;
+  z-index: 0;
+  border-radius: 5px;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.6s;
+}
+
+.menu-item:hover::before, .menu-item:hover span{
+  width: 100%;
+  color: #fff;
+}
+.menu-item.active{
+  background-color: #557CFF;
+}
+.menu-item.active > span{
+  color: #fff;
+  font-weight: bold;
 }
 
 .menu-item .icon {
-  width: 16px;
-  height: 16px;
+  width: auto;
+  height: auto;
   background-color: #557CFF;
-  border-radius: 3px;
+  border-radius: 5px;
+  padding: 7px;
+  display: flex;
+  z-index: 2;
+}
+
+.menu-item .icon > span{
+  color: #fff;
 }

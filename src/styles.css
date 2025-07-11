@@ -1,7 +1,8 @@
 :root {
     /* color-scheme: light dark; */
-    --color-text: #707070,
-    --primary-color: #3498db;
+    --color-text-gray: #707070;
+    --color1-blue: #557CFF;
+    --color2-blue: #3498db;
 }
 
 * {
@@ -45,8 +46,8 @@ body{
 }
 
 .neumorphic-reverse{
-    border: solid 2px transparent;
     border-radius: 50px;
+    border: solid 2px transparent;
     align-items: center;
     box-shadow:
             inset -5px -5px 8px rgba(255, 255, 255, 0.6),

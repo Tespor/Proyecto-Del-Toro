@@ -43,4 +43,11 @@ export class SideMenuComponent {
   selectOption(option: string) {
     this.state.setSelectedOption(option);
   }
+  
+  selectedOption: string = '';
+  ngOnInit() {
+  this.state.selectedOption$.subscribe(option => {
+    this.selectedOption = option;
+  });
+}
 }

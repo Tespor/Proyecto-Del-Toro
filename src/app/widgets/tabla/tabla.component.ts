@@ -19,6 +19,7 @@ export class TablaComponent {
   @Input() showRow = false;
   addData: any = {};
   data: object[] = [];
+  dataTeachers: object[] = [];
   headers: string[] = [];
 
   constructor(
@@ -37,7 +38,7 @@ export class TablaComponent {
         break;
       case 'Teachers': this.getDataTable(this.teacherServ);
         break;
-      case 'Courses': this.getDataTable(this.coursesServ);
+      case 'Courses': this.getDataTable(this.coursesServ), this.getProfesores();
         break;
     }
   }
@@ -49,7 +50,7 @@ export class TablaComponent {
         this.headers = Object.keys(data[0]);
       },
       error: (error: any) => {
-        console.error('Error al obtener alumnos:', error);
+        console.error('Error al obtener datos:', error);
       }
     })
   }
@@ -85,12 +86,26 @@ export class TablaComponent {
   }
 
   addDataa(data: any, service: any) {
-    if (confirm(`Estas Seguro de Agregar Este Dato: ${data[0]}?`)) {
+    console.log(data);
+    if (confirm(`Estas a punto de agregar: ${data.name || data.course}, deseas continuar?`)) {
       service.add(data).subscribe(() => {
         this.getDataTable(service);
         this.showRow = false;
       });
     }
+  }
+
+
+  //Para puros profesores
+  getProfesores(){
+    this.teacherServ.getList().subscribe({
+      next: (data: any) => {
+        this.dataTeachers = data;
+      },
+      error: (error: any) => {
+        console.error('Error al obtener Profesores:', error);
+      }
+    })
   }
 
 }

@@ -3,7 +3,9 @@
   <table>
     <thead>
         <tr>
-          <th *ngFor="let head of headers" class="text-uppercase">{{ head }}</th>
+          <th *ngFor="let head of headers" class="text-uppercase">
+            {{ head }}
+          </th>
           <th></th>
         </tr>
     </thead>
@@ -12,7 +14,16 @@
       <tr *ngIf="showRow" class="no-hover">
         <td *ngFor="let head of headers; let i = index">
           <ng-container *ngIf="i > 0">
-            <input type="text" [(ngModel)]="addData[head]" [attr.name]="head" class="neumorphic-reverse inputAddData rounded-lg"/>
+            <ng-container *ngIf="i == 2 && tableType == 'Courses'; else showNothing">
+              <select [(ngModel)]="addData.id_teacher" name="" id="">
+                <option [value]="teachers.id" *ngFor="let teachers of getValues(dataTeachers);">
+                  {{ teachers.name }}
+                </option>
+              </select>
+            </ng-container>
+            <ng-template #showNothing>
+               <input type="text" [(ngModel)]="addData[head]" [attr.name]="head" class="neumorphic-reverse inputAddData rounded-lg"/>
+            </ng-template>
           </ng-container>
         </td>
         <td>

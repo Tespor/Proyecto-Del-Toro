@@ -4,8 +4,9 @@ import { map, Observable, of } from 'rxjs';
 
 export interface Courses {
   id: number,
-  course: string,//nombre_curso
-  teacher: string,//profesor_id
+  course: string,
+  teacher: string,
+  id_teacher: number
 }
 
 @Injectable({
@@ -23,6 +24,7 @@ export class CoursesService {
           id: item.id,
           course: item.nombre_curso,
           teacher: item.nombre_profesor,
+          id_teacher: item.profesor_id,
         }))
       )
     );
@@ -34,7 +36,8 @@ export class CoursesService {
         data.map(item => ({
           id: item.id,
           course: item.nombre_curso,
-          teacher: item.profesor_id,
+          teacher: item.nombre_profesor,
+          id_teacher: item.profesor_id,
         }))
       )
     );
@@ -48,7 +51,11 @@ export class CoursesService {
     return this.http.put(`${this.url}editar/${id}`, datos);
   }
 
-  public add(datos: Courses): Observable<any> {
-    return this.http.post(`${this.url}ingresar`, datos);
+  public add(data: Courses): Observable<any> {
+    const cleanData = {
+          nombre_curso: data.course,
+          profesor_id: data.id_teacher
+    }
+    return this.http.post(`${this.url}ingresar`, cleanData);
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { StateService } from '../../shared/state.service';
 
 @Component({
   selector: 'app-button-log-out',
@@ -11,7 +12,8 @@ import { Route, Router } from '@angular/router';
 })
 export class ButtonLogOutComponent {
 
-  constructor(private authServ: AuthService, private router: Router){}
+  constructor(private authServ: AuthService, private router: Router, private stateServ: StateService){}
+
 
   logout(): void{
     this.authServ.logout();
