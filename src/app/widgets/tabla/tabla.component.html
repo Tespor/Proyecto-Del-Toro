@@ -1,62 +1,66 @@
 <div class="table-container neumorphic">
-
   <table>
     <thead>
-        <tr>
-          <th *ngFor="let head of headers" class="text-uppercase">
-            {{ head }}
-          </th>
-          <th></th>
-        </tr>
+      <tr>
+        <th *ngFor="let head of headers; let i = index" 
+            class="text-uppercase" 
+            [class.d-none]="i === 3">
+          {{ head }}
+        </th>
+        <th colspan="2"></th>
+      </tr>
     </thead>
     <tbody>
-      
+
+      <!-- Fila de ingreso de datos -->
       <tr *ngIf="showRow" class="no-hover">
-        <td *ngFor="let head of headers; let i = index">
+        <td *ngFor="let head of headers; let i = index" [class.d-none]="i === 3">
           <ng-container *ngIf="i > 0">
-            <ng-container *ngIf="i == 2 && tableType == 'Courses'; else showNothing">
-              <select [(ngModel)]="addData.id_teacher" name="" id="">
-                <option [value]="teachers.id" *ngFor="let teachers of getValues(dataTeachers);">
-                  {{ teachers.name }}
-                </option>
-              </select>
-            </ng-container>
-            <ng-template #showNothing>
-               <input type="text" [(ngModel)]="addData[head]" [attr.name]="head" class="neumorphic-reverse inputAddData rounded-lg"/>
+            
+            <!-- Selector dinámico para Courses -->
+            <select *ngIf="i === 2 && tableType === 'Courses'; else inputField"
+                    [(ngModel)]="addData.id_teacher"
+                    class="neumorphic-reverse inputAddData rounded-lg">
+              <option *ngFor="let teacher of getValues(dataTeachers)" [value]="teacher.id">
+                {{ teacher.name }}
+              </option>
+            </select>
+
+            <!-- Input por defecto -->
+            <ng-template #inputField>
+              <input type="text"
+                     [(ngModel)]="addData[head]"
+                     [attr.name]="head"
+                     class="neumorphic-reverse inputAddData rounded-lg" />
             </ng-template>
+
           </ng-container>
         </td>
-        <td>
+        <td colspan="2">
           <button type="button" (click)="setAdd(addData)" class="btn btn-primary btn-rounded">
-            <span class="material-symbols-outlined m-auto">
-              check
-            </span>
+            <span class="material-symbols-outlined m-auto">check</span>
           </button>
         </td>
       </tr>
 
+      <!-- Filas de datos -->
       <tr *ngFor="let info of data">
-          <td *ngFor="let value of getValues(info);">
-            {{ value }}
-          </td>
-          <td>
-            <button (click)="setDelete(getValues(info)[0])" type="button" class="btn btn-danger btn-rounded">
-              <span class="material-symbols-outlined m-auto">
-                delete 
-              </span>
-            </button>
-          </td>
-          <td>
-            <button type="button" class="btn btn-primary btn-rounded">
-              <span class="material-symbols-outlined m-auto">
-                cached
-              </span>
-            </button>
-          </td>
+        <td *ngFor="let value of getValues(info); let i = index" 
+            [class.d-none]="i === 3">
+          {{ value }}
+        </td>
+        <td>
+          <button (click)="setDelete(getValues(info)[0])" type="button" class="btn btn-danger btn-rounded">
+            <span class="material-symbols-outlined m-auto">delete</span>
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary btn-rounded">
+            <span class="material-symbols-outlined m-auto">cached</span>
+          </button>
+        </td>
       </tr>
+      
     </tbody>
   </table>
-
 </div>
-
-      

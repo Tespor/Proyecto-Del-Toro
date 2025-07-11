@@ -78,7 +78,8 @@ body{
     margin-left: 10px;
     padding: 5px;
     display: flex;
-    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-items: center;
 }
 
 .no-hover:hover {

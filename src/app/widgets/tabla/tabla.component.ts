@@ -29,6 +29,7 @@ export class TablaComponent {
   ) { }
 
   getValues(obj: any): any[] {
+  // return this.headers.map(header => obj[header]);
     return Object.values(obj);//get values without keys
   }
 
@@ -48,6 +49,7 @@ export class TablaComponent {
       next: (data: any) => {
         this.data = data;
         this.headers = Object.keys(data[0]);
+        this.headers = this.headers.filter(h => h !== 'id_teacher');
       },
       error: (error: any) => {
         console.error('Error al obtener datos:', error);

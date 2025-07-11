@@ -9,10 +9,11 @@
     <br><br>
     <div class="d-flex">
       <app-input-search></app-input-search>
-      <button (click)="onToggle()" type="button" class="btn btn-rounded neumorphic-low ml-2">
+      <button (click)="onToggle()" type="button" class="btn btn-rounded neumorphic-low ml-2 d-flex">
         <span class="material-symbols-outlined m-auto">
           add
         </span>
+        <span class="ps-2 pe-2">{{ selectedTable }}</span>
       </button>
     </div>
     <br><br>
