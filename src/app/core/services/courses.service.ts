@@ -47,9 +47,11 @@ export class CoursesService {
     return this.http.delete(`${this.url}eliminar/${id}`);
   }
 
-  public update(id: string, datos: Courses): Observable<any> {
-    return this.http.put(`${this.url}editar/${id}`, datos);
-  }
+public update(id: string, data: Courses): Observable<any> {
+  return this.http.put(`${this.url}editar/${id}`, data);
+}
+
+
 
   public add(data: Courses): Observable<any> {
     const cleanData = {

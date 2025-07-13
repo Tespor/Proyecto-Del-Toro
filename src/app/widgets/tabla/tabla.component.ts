@@ -17,10 +17,14 @@ import { FormsModule } from '@angular/forms';
 export class TablaComponent {
   @Input() tableType: string = '';
   @Input() showRow = false;
+
   addData: any = {};
   data: object[] = [];
   dataTeachers: object[] = [];
   headers: string[] = [];
+
+  editIndex: number | null = null;
+  editData: any = {};
 
   constructor(
     private studentServ: StudentsService, 
@@ -29,8 +33,7 @@ export class TablaComponent {
   ) { }
 
   getValues(obj: any): any[] {
-  // return this.headers.map(header => obj[header]);
-    return Object.values(obj);//get values without keys
+    return Object.values(obj);
   }
 
   ngOnChanges() {
@@ -39,7 +42,9 @@ export class TablaComponent {
         break;
       case 'Teachers': this.getDataTable(this.teacherServ);
         break;
-      case 'Courses': this.getDataTable(this.coursesServ), this.getProfesores();
+      case 'Courses': 
+        this.getDataTable(this.coursesServ);
+        this.getProfesores();
         break;
     }
   }
@@ -54,7 +59,7 @@ export class TablaComponent {
       error: (error: any) => {
         console.error('Error al obtener datos:', error);
       }
-    })
+    });
   }
 
   setDelete(id: String){
@@ -97,9 +102,61 @@ export class TablaComponent {
     }
   }
 
+  editRow(index: number, info: any) {
+    this.editIndex = index;
+    this.editData = { ...info };
+  }
 
-  //Para puros profesores
-  getProfesores(){
+  cancelEdit() {
+    this.editIndex = null;
+    this.editData = {};
+  }
+
+  saveEdit(index: number) {
+    const originalData = this.data[index]; // <-- guardamos la fila original
+    const id = this.getValues(originalData)[0];
+    let service: any;
+
+    switch (this.tableType) {
+      case 'Students': service = this.studentServ; break;
+      case 'Teachers': service = this.teacherServ; break;
+      case 'Courses':
+        service = this.coursesServ;
+        // Mantengo editData intacto para no perder otras propiedades
+        break;
+    }
+
+    if (!service) {
+      console.error('Servicio no definido para tableType:', this.tableType);
+      return;
+    }
+
+    if (confirm('¿Deseas guardar los cambios realizados?')) {
+      if (this.tableType === 'Courses') {
+        // Enviar solo lo que espera backend
+        const dataToSend = {
+          nombre_curso: this.editData.course || this.editData.nombre_curso,
+          profesor_id: this.editData.id_teacher || this.editData.profesor_id
+        };
+        service.update(id, dataToSend).subscribe(() => {
+          // Actualizo la data con las propiedades que espera la UI
+          this.data[index] = {
+            ...originalData,
+            course: dataToSend.nombre_curso,
+            id_teacher: dataToSend.profesor_id
+          };
+          this.cancelEdit();
+        });
+      } else {
+        service.update(id, this.editData).subscribe(() => {
+          this.data[index] = { ...this.editData };
+          this.cancelEdit();
+        });
+      }
+    }
+  }
+
+  getProfesores() {
     this.teacherServ.getList().subscribe({
       next: (data: any) => {
         this.dataTeachers = data;
@@ -107,7 +164,6 @@ export class TablaComponent {
       error: (error: any) => {
         console.error('Error al obtener Profesores:', error);
       }
-    })
+    });
   }
-
 }
