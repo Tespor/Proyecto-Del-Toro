@@ -53,13 +53,15 @@ export default class StudentsService {
   }
   
   public add(data: Students) : Observable<any> {
+    console.log('📦 Enviando al backend:', data);
     const dataClean = this.convertData(data);
     return this.http.post(`${this.url}ingresar`, dataClean);
   }
   
-  public update(data: Students) : Observable<any>{
-    return this.http.put(`${this.url}editar/${data.id}`, data)
-  }
+public update(id: string, data: Students): Observable<any> {
+  return this.http.put(`${this.url}editar/${id}`, data);
+}
+
   
   public delete(id: String): Observable<any> {
     return this.http.delete(`${this.url}eliminar/${id}`);

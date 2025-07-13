@@ -57,9 +57,10 @@ export class TeachersService {
     return this.http.post(`${this.url}ingresar`, dataClean);
   }
 
-  public update(id: string, data: Teachers): Observable<any> {
-    return this.http.put(`${this.url}editar/${id}`, data);
-  }
+ public update(id: string, data: Teachers): Observable<any> {
+  return this.http.put(`${this.url}editar/${id}`, data);
+}
+
 
   private convertData(data: Teachers) {
     return {

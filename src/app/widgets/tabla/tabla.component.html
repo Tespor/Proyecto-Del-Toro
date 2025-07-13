@@ -44,23 +44,56 @@
       </tr>
 
       <!-- Filas de datos -->
-      <tr *ngFor="let info of data" (click)="getStudentCourses(getValues(info)[0])">
-        <td *ngFor="let value of getValues(info); let i = index" 
-            [class.d-none]="i === 3">
-          {{ value }}
-        </td>
-        <td>
-          <button (click)="setDelete(getValues(info)[0])" type="button" class="btn btn-danger btn-rounded">
-            <span class="material-symbols-outlined m-auto">delete</span>
-          </button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-primary btn-rounded">
-            <span class="material-symbols-outlined m-auto">cached</span>
-          </button>
-        </td>
+      <tr *ngFor="let info of data; let rowIndex = index" (click)="getStudentCourses(getValues(info)[0])">
+        <!-- Si está en modo edición -->
+        <ng-container *ngIf="editIndex === rowIndex; else normalRow">
+          <td *ngFor="let head of headers; let i = index" [class.d-none]="i === 3">
+            <ng-container *ngIf="i > 0">
+              <select *ngIf="i === 2 && tableType === 'Courses'; else inputFieldEdit"
+                      [(ngModel)]="editData['id_teacher']"
+                      class="neumorphic-reverse inputAddData rounded-lg">
+                <option *ngFor="let teacher of getValues(dataTeachers)" [value]="teacher.id">
+                  {{ teacher.name }}
+                </option>
+              </select>
+              <ng-template #inputFieldEdit>
+                <input type="text"
+                       [(ngModel)]="editData[head]"
+                       [attr.name]="head"
+                       class="neumorphic-reverse inputAddData rounded-lg" />
+              </ng-template>
+            </ng-container>
+          </td>
+          <td>
+            <button (click)="saveEdit(rowIndex)" class="btn btn-success btn-rounded">
+              <span class="material-symbols-outlined m-auto">check</span>
+            </button>
+          </td>
+          <td>
+            <button (click)="cancelEdit()" class="btn btn-warning btn-rounded">
+              <span class="material-symbols-outlined m-auto">close</span>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Fila normal -->
+        <ng-template #normalRow>
+          <td *ngFor="let value of getValues(info); let i = index" [class.d-none]="i === 3">
+            {{ value }}
+          </td>
+          <td>
+            <button (click)="setDelete(getValues(info)[0])" type="button" class="btn btn-danger btn-rounded">
+              <span class="material-symbols-outlined m-auto">delete</span>
+            </button>
+          </td>
+          <td>
+            <button (click)="editRow(rowIndex, info)" type="button" class="btn btn-primary btn-rounded">
+              <span class="material-symbols-outlined m-auto">cached</span>
+            </button>
+          </td>
+        </ng-template>
       </tr>
-      
+
     </tbody>
   </table>
 </div>
