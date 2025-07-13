@@ -44,7 +44,7 @@
       </tr>
 
       <!-- Filas de datos -->
-      <tr *ngFor="let info of data">
+      <tr *ngFor="let info of data" (click)="getStudentCourses(getValues(info)[0])">
         <td *ngFor="let value of getValues(info); let i = index" 
             [class.d-none]="i === 3">
           {{ value }}

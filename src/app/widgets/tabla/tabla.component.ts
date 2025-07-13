@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import StudentsService from '../../core/services/students.service';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ export class TablaComponent {
   data: object[] = [];
   dataTeachers: object[] = [];
   headers: string[] = [];
+  @Output() CursoSeleccionado = new EventEmitter<any>();
 
   constructor(
     private studentServ: StudentsService, 
@@ -39,7 +40,7 @@ export class TablaComponent {
         break;
       case 'Teachers': this.getDataTable(this.teacherServ);
         break;
-      case 'Courses': this.getDataTable(this.coursesServ), this.getProfesores();
+      case 'Courses': this.getDataTable(this.coursesServ), this.getTeachers();
         break;
     }
   }
@@ -99,13 +100,24 @@ export class TablaComponent {
 
 
   //Para puros profesores
-  getProfesores(){
+  getTeachers(){
     this.teacherServ.getList().subscribe({
       next: (data: any) => {
         this.dataTeachers = data;
       },
       error: (error: any) => {
         console.error('Error al obtener Profesores:', error);
+      }
+    })
+  }
+
+  getStudentCourses(id: string){
+    this.coursesServ.getListStudentsCourses(id).subscribe({
+      next: (data: any) => {
+        this.dataTeachers = data;
+      },
+      error: (error: any) => {
+        console.error('Error al obtener Resultados:', error);
       }
     })
   }

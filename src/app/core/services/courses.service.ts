@@ -30,6 +30,10 @@ export class CoursesService {
     );
   }
 
+  public getListStudentsCourses(idCourse: string) : Observable<Courses[]>{
+      return this.http.get<any[]>(`${this.url}ver/${idCourse}/alumnos`);
+  }
+
   public getSearch() : Observable<Courses[]> {
     return this.http.get<any[]>(`${this.url}ver`).pipe(
       map( data => 
@@ -59,5 +63,5 @@ export class CoursesService {
     return this.http.post(`${this.url}ingresar`, cleanData);
   }
 
-  
+
 }
