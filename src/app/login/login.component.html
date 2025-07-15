@@ -17,14 +17,14 @@
 
   <!-- Formulario centrado -->
   <div class="container max-w-[340px] text-center px-6 py-8 text-white z-10 backdrop-blur-lg">
-    <img 
+    <!-- <img 
       id="passport" 
       src="https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png" 
       alt="Avatar"
       class="mx-auto mb-4"
-    >
+    > -->
 
-    <p class="text-xl font-semibold mb-2">Login Here</p>
+    <p class="text-xl font-semibold mb-2 tracking-widest uppercase">Login Here</p>
     <hr class="my-3 border-gray-400">
 
     <form (ngSubmit)="onSubmit()" class="form-container">
@@ -33,7 +33,7 @@
         name="email"
         [(ngModel)]="email" 
         placeholder="Email..." 
-        class="w-full text-sm"
+        class="w-full text-md"
       >
       <input 
         type="password" 
@@ -45,7 +45,7 @@
 
       <button 
         type="submit"
-        class="p-2 text-sm bg-blue-500 rounded-xl mt-4 w-32 mx-auto hover:bg-gradient-to-r hover:from-orange-500 hover:via-pink-500 hover:to-pink-700"
+        class="p-2 text-sm bg-blue-500 rounded-xl mt-4 w-32 mx-auto hover:bg-gradient-to-r hover:from-orange-500 hover:via-pink-500 hover:to-pink-700 btn-rounded"
       >
         Login
       </button>

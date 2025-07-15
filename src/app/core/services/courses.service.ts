@@ -16,6 +16,7 @@ export interface Courses {
 export class CoursesService {
   private http = inject(HttpClient);
   private url = "http://localhost:3000/cursos/";
+  private url2 = "http://localhost:3000/alumCurso/";
 
   public getList() : Observable<Courses[]> {
     return this.http.get<any[]>(`${this.url}ver`).pipe(
@@ -28,6 +29,10 @@ export class CoursesService {
         }))
       )
     );
+  }
+
+  public getNoStudentsCourse(id_course: string) : Observable<Courses[]> {
+    return this.http.get<any[]>(`${this.url}alumnos-no-inscritos/${id_course}`);
   }
 
   public getListStudentsCourses(idCourse: string) : Observable<Courses[]>{
@@ -51,9 +56,9 @@ export class CoursesService {
     return this.http.delete(`${this.url}eliminar/${id}`);
   }
 
-public update(id: string, data: Courses): Observable<any> {
-  return this.http.put(`${this.url}editar/${id}`, data);
-}
+  public update(id: string, data: Courses): Observable<any> {
+    return this.http.put(`${this.url}editar/${id}`, data);
+  }
 
 
 
@@ -64,6 +69,12 @@ public update(id: string, data: Courses): Observable<any> {
     }
     return this.http.post(`${this.url}ingresar`, cleanData);
   }
-
+  //alumCurso
+  public addStudentintoCourse(data: any): Observable<any>{
+    return this.http.post(`${this.url2}ingresar`, data);
+  }
+  public deleteStudentintoCourse(id: String): Observable<any> {
+    return this.http.delete(`${this.url2}eliminar/${id}`);
+  }
 
 }

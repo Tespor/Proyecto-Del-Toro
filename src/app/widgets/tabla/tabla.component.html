@@ -1,10 +1,10 @@
 <div class="table-container neumorphic">
-  <table>
+  <table class="Mytable">
     <thead>
       <tr>
         <th *ngFor="let head of headers; let i = index" 
             class="text-uppercase" 
-            [class.d-none]="i === 3">
+            [class.d-none]="i === 3 && tableType === 'Courses'">
           {{ head }}
         </th>
         <th colspan="2"></th>
@@ -14,7 +14,7 @@
 
       <!-- Fila de ingreso de datos -->
       <tr *ngIf="showRow" class="no-hover">
-        <td *ngFor="let head of headers; let i = index" [class.d-none]="i === 3">
+        <td *ngFor="let head of headers; let i = index" [class.d-none]="i === 3 && tableType === 'Courses'">
           <ng-container *ngIf="i > 0">
             
             <!-- Selector dinámico para Courses -->
@@ -44,10 +44,10 @@
       </tr>
 
       <!-- Filas de datos -->
-      <tr *ngFor="let info of data; let rowIndex = index" (click)="getStudentCourses(getValues(info)[0])">
+      <tr *ngFor="let info of data; let rowIndex = index">
         <!-- Si está en modo edición -->
         <ng-container *ngIf="editIndex === rowIndex; else normalRow">
-          <td *ngFor="let head of headers; let i = index" [class.d-none]="i === 3">
+          <td *ngFor="let head of headers; let i = index" [class.d-none]="i === 3 && tableType === 'Courses'">
             <ng-container *ngIf="i > 0">
               <select *ngIf="i === 2 && tableType === 'Courses'; else inputFieldEdit"
                       [(ngModel)]="editData['id_teacher']"
@@ -78,7 +78,7 @@
 
         <!-- Fila normal -->
         <ng-template #normalRow>
-          <td *ngFor="let value of getValues(info); let i = index" [class.d-none]="i === 3">
+          <td *ngFor="let value of getValues(info); let i = index" [class.d-none]="i === 3 && tableType === 'Courses'">
             {{ value }}
           </td>
           <td>
@@ -91,9 +91,83 @@
               <span class="material-symbols-outlined m-auto">cached</span>
             </button>
           </td>
+          <td  *ngIf="tableType === 'Courses'">
+            <button type="button" class="btn btn-success btn-rounded"
+              (click)="getStudentCourses(getValues(info)[0], getValues(info)[1]); getDataStudentNoCourse(getValues(info)[0])"
+              data-bs-toggle="modal" data-bs-target="#TableModal">
+              <span class="material-symbols-outlined m-auto">visibility</span>
+            </button>
+          </td>
         </ng-template>
       </tr>
 
     </tbody>
   </table>
+
+
+  <!-- table to popup -->
+  <!-- Modal -->
+  <div class="modal fade" id="TableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content Mymodal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Students in Course: {{ courseSelected }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row">
+          <ng-container *ngIf="dataStudentsPerCourse">
+            <div class="alert alert-warning col-12" role="alert" *ngIf="dataStudentsPerCourse.length === 0">
+              There are no students in this course
+            </div>
+          </ng-container>
+          <div *ngIf="dataStudentsNoCourse" class="col-4">
+            <label class="block mb-2 font-semibold">Select students to enroll:</label>
+            <div class="max-h-64 overflow-y-auto border rounded p-2">
+              <div *ngFor="let alumno of dataStudentsNoCourse">
+                <label class="flex items-center gap-2">
+                  <input 
+                    type="checkbox" 
+                    [value]="alumno.id" 
+                    (change)="onCheckStudent($event, alumno.id)"
+                  />
+                  {{ alumno.name }} {{ alumno.lastname }} {{ alumno.slastname }}
+                </label>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-rounded w-100 ms-0 mt-3" 
+            (click)="addStudentsToCourse(courseSelectedId)">Enroll</button>
+          </div>
+          
+          <table class="neumorphic col-8">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="dataStudentsPerCourse.length > 0">
+                <tr *ngFor="let alumno of dataStudentsPerCourse">
+                  <td>{{ alumno.id }}</td>
+                  <td>{{ alumno.name + ' ' + alumno.lastname + ' ' + alumno.slastname }}</td>
+                  <td>
+                    <button (click)="setDeleteStudentIntoCourse(alumno.idCourseStudent)" type="button" class="btn btn-danger btn-rounded">
+                      <span class="material-symbols-outlined m-auto">delete</span>
+                    </button>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  
+
 </div>

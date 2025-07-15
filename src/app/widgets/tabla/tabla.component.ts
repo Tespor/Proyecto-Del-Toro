@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import StudentsService from '../../core/services/students.service';
+import StudentsService, { Students } from '../../core/services/students.service';
 import { CommonModule } from '@angular/common';
 import { TeachersService } from '../../core/services/teachers.service';
 import { CoursesService } from '../../core/services/courses.service';
@@ -17,10 +17,16 @@ import { FormsModule } from '@angular/forms';
 export class TablaComponent {
   @Input() tableType: string = '';
   @Input() showRow = false;
+  courseSelected: string = '';
+  courseSelectedId: string = '';
+
+  selectedMatriculas: string[] = [];
 
   addData: any = {};
   data: object[] = [];
   dataTeachers: object[] = [];
+  dataStudentsPerCourse: any[] = [];
+  dataStudentsNoCourse: any[] = [];
   headers: string[] = [];
   @Output() CursoSeleccionado = new EventEmitter<any>();
 
@@ -147,11 +153,13 @@ export class TablaComponent {
             id_teacher: dataToSend.profesor_id
           };
           this.cancelEdit();
+          this.ngOnChanges();
         });
       } else {
         service.update(id, this.editData).subscribe(() => {
           this.data[index] = { ...this.editData };
           this.cancelEdit();
+          this.ngOnChanges();
         });
       }
     }
@@ -167,15 +175,108 @@ export class TablaComponent {
       }
     });
   }
-  getStudentCourses(id: string){
-    this.coursesServ.getListStudentsCourses(id).subscribe({
-      next: (data: any) => {
-        this.dataTeachers = data;
-      },
-      error: (error: any) => {
-        console.error('Error al obtener Resultados:', error);
+  
+  //Cuando le den clic al curso, muestra todos los alumnos de ese curso
+ getStudentCourses(id: string, course: string) {
+  this.courseSelected = course;
+  this.courseSelectedId = id;
+  this.selectedMatriculas = [];
+
+  this.coursesServ.getListStudentsCourses(id).subscribe({
+    next: (data: any) => {
+      console.log("Esta data es de ver: ",data)
+      if (!Array.isArray(data)) {
+        this.dataStudentsPerCourse = [];
+        return;
       }
-    })
+
+      this.dataStudentsPerCourse = data
+        .filter((a: any) => a != null)
+        .map((a: any) => ({
+          id: a.matricula,
+          name: a.nombre,
+          lastname: a.apellidoP,
+          slastname: a.apellidoM,
+          idCourseStudent: a.id
+        }));
+    },
+    error: () => {
+      // Error silencioso (no mostrar en consola si no quieres)
+      this.dataStudentsPerCourse = [];
+    }
+  });
+}
+
+
+  
+
+  //Cuando se vaya a agregar nuevos estudiantes 
+  // y quieres ver la lista de los que no estan en ese curso 
+  onCheckStudent(event: any, matricula: string) {
+    if (event.target.checked) {
+      this.selectedMatriculas.push(matricula);
+    } else {
+      this.selectedMatriculas = this.selectedMatriculas.filter(id => id !== matricula);
+    }
   }
 
+  getDataStudentNoCourse(id_course: string) {
+    this.coursesServ.getNoStudentsCourse(id_course).subscribe({
+      next: (data: any) => {
+
+        this.dataStudentsNoCourse = (data || [])
+          .filter((a: any) => a != null)
+          .map((a: any) => ({
+            id: a.matricula,
+            name: a.nombre,
+            lastname: a.apellidoP,
+            slastname: a.apellidoM,
+          }));
+        console.log(data);
+      },
+      error: (error: any) => {
+        console.error('Error al obtener Estudiantes:', error);
+      }
+    });
+  }
+
+
+  //For add a new student
+  addStudentsToCourse(id_curso: string): void {
+    if (this.selectedMatriculas.length === 0) {
+      console.warn('No hay alumnos seleccionados');
+      return;
+    }
+    
+    const data = {
+      id_curso,
+      matriculas: this.selectedMatriculas
+    };
+    console.log(data);
+
+    this.coursesServ.addStudentintoCourse(data).subscribe({
+      next: (res) => {
+        console.log('Estudiantes inscritos correctamente:', res);
+        this.selectedMatriculas = [];
+        this.getDataStudentNoCourse(this.courseSelectedId);
+        this.getStudentCourses(this.courseSelectedId, this.courseSelected);
+      },
+      error: (err) => {
+        console.error('Error al inscribir estudiantes:', err);
+      }
+    });
+  }
+
+  setDeleteStudentIntoCourse(id: string){
+    this.coursesServ.deleteStudentintoCourse(id).subscribe({
+      next: (res) => {
+        console.log('Estudiantes eliminado correctamente:', res);
+        this.getDataStudentNoCourse(this.courseSelectedId);
+        this.getStudentCourses(this.courseSelectedId, this.courseSelected);
+      },
+      error: (err) => {
+        console.error('Error al eliminar estudiantes:', err);
+      }
+    });
+  }
 }
