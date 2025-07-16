@@ -18,7 +18,7 @@ export interface Students {
 
 
 /*Services to studetns*/
-export default class StudentsService {
+export  class StudentsService {
   private http = inject(HttpClient);
   private url = "http://localhost:3000/alumnos/";
 
